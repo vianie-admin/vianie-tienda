@@ -2,17 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    
-    <!-- ESTA ES LA LÍNEA MÁGICA QUE OBLIGA AL PANEL A ADAPTARSE AL CELULAR -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    
     <title>Panel de Administración - Vianie</title>
     
     <style>
-      /* Pequeño ajuste para que los textos no se vean tan minúsculos en el celular */
+      /* 1. Bloqueamos el movimiento hacia los lados (la pared invisible) */
+      html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+      }
+
+      /* Reglas especiales solo para celulares */
       @media (max-width: 768px) {
-        body { font-size: 16px !important; }
-        .nc-app-main { padding: 10px !important; }
+        
+        /* 2. Obligamos a que el menú "Collections" y los productos se apilen hacia abajo, no hacia los lados */
+        #nc-root > div > div:nth-child(2) {
+          display: flex !important;
+          flex-direction: column !important;
+        }
+
+        /* 3. Evitamos que las cajas sean más anchas que la pantalla */
+        #nc-root div, #nc-root aside, #nc-root section {
+          max-width: 100vw !important;
+          box-sizing: border-box !important;
+        }
+        
+        /* 4. Le damos un poco de respiro al menú para que no se pegue al catálogo */
+        aside {
+          width: 100% !important;
+          margin-bottom: 20px !important;
+        }
       }
     </style>
 
