@@ -1,0 +1,30 @@
+/* DOMANDO EL PANEL PARA CELULARES */
+
+@media (max-width: 768px) {
+  /* 1. Obligamos al contenedor principal a ser una columna */
+  #nc-root > div > div {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* 2. La barra lateral "Collections" ahora ocupa el 100% del ancho arriba */
+  #nc-root aside {
+    width: 100% !important;
+    min-width: 100% !important;
+    position: relative !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 3. El cuadro de "Gestión de Tienda" se pone justo debajo, sin empujar nada */
+  #nc-root aside + div {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  /* 4. Bloqueamos cualquier movimiento lateral fantasma */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+}
