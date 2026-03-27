@@ -68,41 +68,32 @@
   </main>
 
   <script>
-    const linkGoogleSheets = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz7LGcXAgtvrCMqrTKN9XHtaqFJC2tUaGyJEKTa4W9Zmbefmyyg5umOQPBVv4GllpPxUaEogC4x3i9/pub?output=tsv"; 
-    const urlFresca = linkGoogleSheets + "&t=" + new Date().getTime();
+    // Ahora leemos el archivo JSON automático que crea tu panel de control
+    const urlFresca = "productos.json?t=" + new Date().getTime();
 
     fetch(urlFresca, { cache: "no-store" })
-      .then(respuesta => respuesta.text())
+      .then(respuesta => respuesta.json()) // Ahora leemos JSON, no texto
       .then(datos => {
          const contenedor = document.getElementById('catalogo-dinamico');
-         
-         const filas = datos.replace(/\r/g, '').split('\n');
+         contenedor.innerHTML = ''; // Borramos el "Cargando..."
+
          const categorias = {}; 
+         // Extraemos los artículos de la lista del panel. Si no hay, usamos una lista vacía.
+         const articulos = datos.articulos || [];
 
-         for(let i = 1; i < filas.length; i++) {
-            if(!filas[i].trim()) continue; 
+         articulos.forEach(producto => {
+            const nombre = producto.nombre || 'Sin Nombre';
+            const precio = producto.precio || 0;
+            const material = producto.material || '';
+            const categoria = producto.categoria || 'Otros';
+            // El panel guarda la ruta de la imagen así: "/imagenes/foto.jpeg"
+            const imagen = producto.imagen || ''; 
+            const agotado = producto.agotado || false; 
 
-            // Dividimos las columnas
-            const columnas = filas[i].split('\t');
-            
-            // AHORA SOLO PEDIMOS QUE AL MENOS TENGA UN ID Y UN NOMBRE PARA MOSTRARSE
-            if(columnas.length < 2) continue; 
-            
-            const id = columnas[0] ? columnas[0].trim() : '';
-            const nombre = columnas[1] ? columnas[1].trim() : 'Sin Nombre';
-            const precio = columnas[2] ? columnas[2].trim() : '0';
-            const material = columnas[3] ? columnas[3].trim() : '';
-            const imagen = columnas[4] ? columnas[4].trim() : '';
-            const agotado = columnas[5] ? columnas[5].trim().toUpperCase() : 'NO'; 
-            
-            // Leemos la columna de categoría. Si no existe, va a "Otros"
-            let categoria = columnas[6] ? columnas[6].trim() : 'Otros';
-            if (categoria === '') categoria = 'Otros';
+            const claseAgotado = agotado ? 'tarjeta-agotada' : '';
+            const cartelAgotado = agotado ? '<div class="badge-agotado">AGOTADO</div>' : '';
 
-            const esAgotado = (agotado === 'SI' || agotado === 'SÍ');
-            const claseAgotado = esAgotado ? 'tarjeta-agotada' : '';
-            const cartelAgotado = esAgotado ? '<div class="badge-agotado">AGOTADO</div>' : '';
-
+            // Armamos la tarjeta, enviando la ruta de la imagen directo al link
             const tarjetaHTML = `
               <article class="jewelry-card ${claseAgotado}">
                 <a href="producto.html?id=${encodeURIComponent(imagen)}&nombre=${encodeURIComponent(nombre)}&precio=${precio}&material=${encodeURIComponent(material)}">
@@ -122,10 +113,10 @@
             `;
             
             if (!categorias[categoria]) {
-                categorias[categoria] = []; 
+                categorias[categoria] = [];
             }
-            categorias[categoria].push(tarjetaHTML); 
-         }
+            categorias[categoria].push(tarjetaHTML);
+         });
 
          let htmlFinal = '';
 
@@ -136,12 +127,17 @@
              htmlFinal += `</section>`;
          }
 
+         // Si la tienda está vacía, mostramos un mensaje
+         if(htmlFinal === '') {
+             htmlFinal = '<p style="text-align:center; padding: 50px; color:#888;">No hay productos en el catálogo todavía.</p>';
+         }
+
          contenedor.innerHTML = htmlFinal;
 
       })
       .catch(error => {
           console.error("Error al obtener los datos:", error);
-          document.getElementById('catalogo-dinamico').innerHTML = '<p style="color:red; text-align:center; padding: 50px;">Error al cargar el catálogo.</p>';
+          document.getElementById('catalogo-dinamico').innerHTML = '<p style="color:red; text-align:center; padding: 50px;">Aún no se ha creado el catálogo desde el Panel de Administración.</p>';
       });
   </script>
 
