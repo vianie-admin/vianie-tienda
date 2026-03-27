@@ -1,0 +1,12 @@
+{
+  "articulos": [
+    {
+      "agotado": false,
+      "nombre": "Cadena Rapunzel dorada",
+      "precio": 45,
+      "material": "Dorado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/girasol.jpeg"
+    }
+  ]
+}
