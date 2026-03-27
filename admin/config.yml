@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main # Rama principal de tu código
+
+# Aquí se guardarán las fotos nuevas que subas
+media_folder: "imagenes"
+public_folder: "/imagenes"
+
+collections:
+  - name: "tienda"
+    label: "Gestión de Tienda"
+    files:
+      - label: "Catálogo de Joyas"
+        name: "catalogo"
+        file: "productos.json" # Reemplazaremos el Excel por este archivo automático
+        fields:
+          - label: "Lista de Productos"
+            name: "articulos"
+            widget: "list"
+            fields:
+              - {label: "Nombre del Producto", name: "nombre", widget: "string"}
+              - {label: "Precio (bs)", name: "precio", widget: "number"}
+              - {label: "Material", name: "material", widget: "string"}
+              - {label: "Categoría", name: "categoria", widget: "select", options: ["Aros y Argollas", "Anillos", "Cadenas y Collares", "Otros"]}
+              - {label: "Agotado", name: "agotado", widget: "boolean", default: false}
+              - {label: "Subir Imagen", name: "imagen", widget: "image"}

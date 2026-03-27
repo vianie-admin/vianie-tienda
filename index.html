@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vianie Jewelry - Catálogo</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+
+  <nav class="top-navbar">
+    <label for="menu-toggle" class="menu-btn">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+      </svg>
+      MENÚ
+    </label>
+
+    <div class="logo">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#b68d40" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h12l4 6-10 12L2 9z"/>
+      </svg>
+      <span class="logo-text">VIANIE</span>
+    </div>
+
+    <div class="user-actions">
+       <a href="https://wa.me/59177163648?text=Hola%20Vianie!%20Me%20gustaría%20hacer%20una%20consulta." target="_blank" class="contact-btn">Contacto</a>
+    </div>
+  </nav>
+
+  <label for="menu-toggle" class="menu-overlay"></label>
+
+  <aside class="side-menu">
+    <div class="side-menu-header">
+      <div class="logo">
+        <span class="logo-text">VIANIE</span>
+      </div>
+      <label for="menu-toggle" class="close-btn">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </label>
+    </div>
+    <ul class="side-menu-links">
+      <li><a href="index.html">Catálogo Completo</a></li>
+    </ul>
+  </aside>
+
+  <main class="store-container">
+    
+    <header class="hero-header">
+      <h1 class="hero-title">Accesorios en <span class="highlight">Acero Inox</span></h1>
+      <p class="hero-subtitle">Descubre nuestra colección de joyas elegantes, minimalistas y duraderas para cada ocasión.</p>
+    </header>
+
+    <div id="catalogo-dinamico">
+        <p style="text-align:center; padding: 50px; color:#888;">Cargando catálogo...</p>
+    </div>
+
+  </main>
+
+  <script>
+    const linkGoogleSheets = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz7LGcXAgtvrCMqrTKN9XHtaqFJC2tUaGyJEKTa4W9Zmbefmyyg5umOQPBVv4GllpPxUaEogC4x3i9/pub?output=tsv"; 
+    const urlFresca = linkGoogleSheets + "&t=" + new Date().getTime();
+
+    fetch(urlFresca, { cache: "no-store" })
+      .then(respuesta => respuesta.text())
+      .then(datos => {
+         const contenedor = document.getElementById('catalogo-dinamico');
+         
+         const filas = datos.replace(/\r/g, '').split('\n');
+         const categorias = {}; 
+
+         for(let i = 1; i < filas.length; i++) {
+            if(!filas[i].trim()) continue; 
+
+            // Dividimos las columnas
+            const columnas = filas[i].split('\t');
+            
+            // AHORA SOLO PEDIMOS QUE AL MENOS TENGA UN ID Y UN NOMBRE PARA MOSTRARSE
+            if(columnas.length < 2) continue; 
+            
+            const id = columnas[0] ? columnas[0].trim() : '';
+            const nombre = columnas[1] ? columnas[1].trim() : 'Sin Nombre';
+            const precio = columnas[2] ? columnas[2].trim() : '0';
+            const material = columnas[3] ? columnas[3].trim() : '';
+            const imagen = columnas[4] ? columnas[4].trim() : '';
+            const agotado = columnas[5] ? columnas[5].trim().toUpperCase() : 'NO'; 
+            
+            // Leemos la columna de categoría. Si no existe, va a "Otros"
+            let categoria = columnas[6] ? columnas[6].trim() : 'Otros';
+            if (categoria === '') categoria = 'Otros';
+
+            const esAgotado = (agotado === 'SI' || agotado === 'SÍ');
+            const claseAgotado = esAgotado ? 'tarjeta-agotada' : '';
+            const cartelAgotado = esAgotado ? '<div class="badge-agotado">AGOTADO</div>' : '';
+
+            const tarjetaHTML = `
+              <article class="jewelry-card ${claseAgotado}">
+                <a href="producto.html?id=${encodeURIComponent(imagen)}&nombre=${encodeURIComponent(nombre)}&precio=${precio}&material=${encodeURIComponent(material)}">
+                  <div class="image-container">
+                      <img src="${imagen}" alt="${nombre}" style="width: 100%; height: 100%; object-fit: cover;">
+                      ${cartelAgotado}
+                  </div>
+                  <div class="jewelry-info">
+                    <h3>${nombre}</h3>
+                    <div class="jewelry-details">
+                      <span class="price">${precio} bs.-</span>
+                      <span class="material-tag">${material}</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            `;
+            
+            if (!categorias[categoria]) {
+                categorias[categoria] = []; 
+            }
+            categorias[categoria].push(tarjetaHTML); 
+         }
+
+         let htmlFinal = '';
+
+         for (const cat in categorias) {
+             htmlFinal += `<h2 class="category-title">${cat}</h2>`;
+             htmlFinal += `<section class="jewelry-grid">`;
+             htmlFinal += categorias[cat].join('');
+             htmlFinal += `</section>`;
+         }
+
+         contenedor.innerHTML = htmlFinal;
+
+      })
+      .catch(error => {
+          console.error("Error al obtener los datos:", error);
+          document.getElementById('catalogo-dinamico').innerHTML = '<p style="color:red; text-align:center; padding: 50px;">Error al cargar el catálogo.</p>';
+      });
+  </script>
+
+</body>
+</html>
