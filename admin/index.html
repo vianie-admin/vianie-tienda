@@ -2,9 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- ESTA ES LA LÍNEA MÁGICA QUE OBLIGA AL PANEL A ADAPTARSE AL CELULAR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    
     <title>Panel de Administración - Vianie</title>
-    <!-- ESTA ES LA CERRADURA QUE FALTABA -->
+    
+    <style>
+      /* Pequeño ajuste para que los textos no se vean tan minúsculos en el celular */
+      @media (max-width: 768px) {
+        body { font-size: 16px !important; }
+        .nc-app-main { padding: 10px !important; }
+      }
+    </style>
+
+    <!-- La cerradura de los usuarios -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
