@@ -1,30 +1,38 @@
-/* DOMANDO EL PANEL PARA CELULARES */
+/* DOMANDO EL PANEL PARA CELULARES - VERSIÓN DEFINITIVA */
 
 @media (max-width: 768px) {
-  /* 1. Obligamos al contenedor principal a ser una columna */
-  #nc-root > div > div {
-    display: flex !important;
-    flex-direction: column !important;
+  /* 1. Bloqueamos el desborde de la pantalla por completo */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100vw !important;
+    position: relative;
   }
 
-  /* 2. La barra lateral "Collections" ahora ocupa el 100% del ancho arriba */
+  /* 2. EL TRUCO MÁGICO: Buscamos exactamente el contenedor que tiene 
+     la barra lateral (aside) y lo obligamos a ser una columna vertical */
+  #nc-root div:has(> aside) {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  /* 3. La caja de "Collections" ocupa todo el ancho y deja espacio abajo */
   #nc-root aside {
     width: 100% !important;
     min-width: 100% !important;
-    position: relative !important;
+    max-width: 100% !important;
     margin-bottom: 20px !important;
+    margin-right: 0 !important;
   }
 
-  /* 3. El cuadro de "Gestión de Tienda" se pone justo debajo, sin empujar nada */
+  /* 4. La caja de "Gestión de Tienda" se pone dócilmente debajo ocupando todo el ancho */
   #nc-root aside + div {
     width: 100% !important;
+    min-width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
-  }
-  
-  /* 4. Bloqueamos cualquier movimiento lateral fantasma */
-  html, body {
-    overflow-x: hidden !important;
-    width: 100%;
+    margin-left: 0 !important; 
+    padding: 0 !important;
   }
 }
