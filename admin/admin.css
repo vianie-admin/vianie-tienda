@@ -1,15 +1,12 @@
-/* DOMANDO EL PANEL PARA CELULARES - VERSIÓN DEFINITIVA */
+/* DOMANDO EL PANEL PARA CELULARES - ESTRUCTURA LIMPIA */
 
 @media (max-width: 768px) {
-  /* 1. Bloqueamos el desborde de la pantalla por completo */
   html, body {
     overflow-x: hidden !important;
     width: 100vw !important;
     position: relative;
   }
 
-  /* 2. EL TRUCO MÁGICO: Buscamos exactamente el contenedor que tiene 
-     la barra lateral (aside) y lo obligamos a ser una columna vertical */
   #nc-root div:has(> aside) {
     display: flex !important;
     flex-direction: column !important;
@@ -18,7 +15,6 @@
     width: 100% !important;
   }
 
-  /* 3. La caja de "Collections" ocupa todo el ancho y deja espacio abajo */
   #nc-root aside {
     width: 100% !important;
     min-width: 100% !important;
@@ -27,7 +23,6 @@
     margin-right: 0 !important;
   }
 
-  /* 4. La caja de "Gestión de Tienda" se pone dócilmente debajo ocupando todo el ancho */
   #nc-root aside + div {
     width: 100% !important;
     min-width: 100% !important;
@@ -35,22 +30,4 @@
     margin-left: 0 !important; 
     padding: 0 !important;
   }
-}
-/* TEMA DARK PREMIUM PARA VIANIE */
-body { background: #121212 !important; color: #e0e0e0 !important; }
-
-/* Barra superior */
-nav { background: #1e1e1e !important; border-bottom: 1px solid #333 !important; }
-
-/* Menú lateral */
-aside { background: #181818 !important; border-right: 1px solid #333 !important; }
-aside a { color: #b68d40 !important; font-weight: 500 !important; }
-
-/* Botones y tarjetas */
-button, .nc-app-header-button { background: #b68d40 !important; color: white !important; border-radius: 8px !important; }
-
-/* Ajuste móvil que ya teníamos */
-@media (max-width: 768px) {
-  #nc-root div:has(> aside) { display: flex !important; flex-direction: column !important; }
-  aside { width: 100% !important; min-width: 100% !important; margin-bottom: 15px !important; }
 }
