@@ -37,7 +37,7 @@
       
       <div class="product-image-column">
         <div class="image-container-detail" id="contenedor-imagen">
-            <div class="image-placeholder-detail">CARGANDO IMAGEN...</div>
+            <div class="image-placeholder-detail">CARGANDO GALERÍA...</div>
         </div>
       </div>
 
@@ -88,49 +88,70 @@
     const materialProducto = obtenerParametroUrl('material');
 
     if (nombreProducto && precioProducto && idProducto) {
-      // Rellenamos los textos visuales
       document.title = `Vianie Jewelry - ${nombreProducto}`;
       document.getElementById('product-name').innerText = nombreProducto;
       document.getElementById('product-price').innerText = precioProducto;
       document.getElementById('product-material').innerText = materialProducto;
-      
-      const imagenReal = document.createElement('img');
-      const nombreImagenLimpio = idProducto.trim(); 
-      imagenReal.src = nombreImagenLimpio; 
-      imagenReal.alt = nombreProducto;
-      imagenReal.style.width = '100%';
-      imagenReal.style.height = '100%';
-      imagenReal.style.objectFit = 'cover';
-      
-      const contenedor = document.getElementById('contenedor-imagen');
-      contenedor.innerHTML = '';
-      contenedor.appendChild(imagenReal);
-      
-      // Armamos el mensaje base
+
       const mensajeBase = `Hola Vianie! 👋 Vengo de la página web y me gustaría comprar este accesorio:\n\n*Producto:* ${nombreProducto}\n*Material:* ${materialProducto}\n*Precio:* ${precioProducto} bs.-`;
       const mensajeCodificado = encodeURIComponent(mensajeBase);
 
-      // Leemos la configuración desde el panel para obtener los números
-      fetch("configuracion.json?t=" + new Date().getTime())
-        .then(respuesta => respuesta.json())
-        .then(config => {
-           // Usamos los números del panel, o los originales si el panel aún no se guardó
-           const ws1 = config.ws_1 || "59177163648";
-           const ws2 = config.ws_2 || "59176175389";
+      // Traemos las configuraciones y los productos al mismo tiempo
+      Promise.all([
+        fetch("configuracion.json?t=" + new Date().getTime()).then(r => r.json()).catch(() => ({})),
+        fetch("productos.json?t=" + new Date().getTime()).then(r => r.json()).catch(() => ({ articulos: [] }))
+      ]).then(([config, datosProductos]) => {
+         
+         // 1. WhatsApps dinámicos
+         const ws1 = config.ws_1 || "59177163648";
+         const ws2 = config.ws_2 || "59176175389";
+         document.getElementById('whatsapp-btn-1').href = `https://wa.me/${ws1}?text=${mensajeCodificado}`;
+         document.getElementById('whatsapp-btn-2').href = `https://wa.me/${ws2}?text=${mensajeCodificado}`;
 
-           // Asignamos los enlaces a los botones
-           document.getElementById('whatsapp-btn-1').href = `https://wa.me/${ws1}?text=${mensajeCodificado}`;
-           document.getElementById('whatsapp-btn-2').href = `https://wa.me/${ws2}?text=${mensajeCodificado}`;
-        })
-        .catch(error => {
-           console.error("No se pudo cargar la configuración:", error);
-           // Fallback en caso de error
-           document.getElementById('whatsapp-btn-1').href = `https://wa.me/59177163648?text=${mensajeCodificado}`;
-           document.getElementById('whatsapp-btn-2').href = `https://wa.me/59176175389?text=${mensajeCodificado}`;
-        });
-    
+         // 2. Construir la Galería de Imágenes
+         const articulos = datosProductos.articulos || [];
+         // Buscamos el producto exacto por su nombre
+         const productoActual = articulos.find(p => p.nombre === nombreProducto);
+         
+         // Nuestra lista empieza siempre con la foto principal
+         let listaImagenes = [idProducto.trim()];
+         
+         // Si el producto tiene fotos extra guardadas, las sumamos a la lista
+         if (productoActual && productoActual.galeria && productoActual.galeria.length > 0) {
+             listaImagenes = listaImagenes.concat(productoActual.galeria);
+         }
+
+         const contenedor = document.getElementById('contenedor-imagen');
+         contenedor.innerHTML = ''; 
+         contenedor.style.backgroundColor = '#eaeaea'; // Fondo base para evitar destellos blancos
+         
+         const imgElement = document.createElement('img');
+         imgElement.src = listaImagenes[0];
+         imgElement.style.width = '100%';
+         imgElement.style.height = '100%';
+         imgElement.style.objectFit = 'cover';
+         // Esta línea crea el efecto de fundido suave
+         imgElement.style.transition = 'opacity 0.6s ease-in-out'; 
+         
+         contenedor.appendChild(imgElement);
+
+         // 3. Activar la animación solo si hay más de 1 foto
+         if (listaImagenes.length > 1) {
+             let indice = 0;
+             setInterval(() => {
+                 imgElement.style.opacity = '0'; // Se oculta suavemente
+                 
+                 setTimeout(() => {
+                     indice = (indice + 1) % listaImagenes.length;
+                     imgElement.src = listaImagenes[indice]; // Cambia la foto oculta
+                     imgElement.style.opacity = '1'; // Reaparece con la foto nueva
+                 }, 600); // Espera 0.6 segundos en cargar la nueva
+                 
+             }, 3500); // Cambia cada 3.5 segundos automáticamente
+         }
+      });
     } else {
-      document.body.innerHTML = '<div style="text-align:center; padding:50px; font-family: sans-serif;">Producto no encontrado. <br><br> <a href="index.html" style="color: #b68d40;">Volver al catálogo</a></div>';
+      document.body.innerHTML = '<div style="text-align:center; padding:50px;">Producto no encontrado. <br><br> <a href="index.html">Volver al catálogo</a></div>';
     }
   </script>
 
