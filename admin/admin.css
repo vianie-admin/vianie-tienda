@@ -36,3 +36,21 @@
     padding: 0 !important;
   }
 }
+/* TEMA DARK PREMIUM PARA VIANIE */
+body { background: #121212 !important; color: #e0e0e0 !important; }
+
+/* Barra superior */
+nav { background: #1e1e1e !important; border-bottom: 1px solid #333 !important; }
+
+/* Menú lateral */
+aside { background: #181818 !important; border-right: 1px solid #333 !important; }
+aside a { color: #b68d40 !important; font-weight: 500 !important; }
+
+/* Botones y tarjetas */
+button, .nc-app-header-button { background: #b68d40 !important; color: white !important; border-radius: 8px !important; }
+
+/* Ajuste móvil que ya teníamos */
+@media (max-width: 768px) {
+  #nc-root div:has(> aside) { display: flex !important; flex-direction: column !important; }
+  aside { width: 100% !important; min-width: 100% !important; margin-bottom: 15px !important; }
+}
