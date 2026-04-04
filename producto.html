@@ -10,8 +10,80 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Estilos para las flechas de la galería */
+    .galeria-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .btn-galeria {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      border: none;
+      color: #333;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none; 
+      z-index: 10;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-galeria:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+    #btn-prev { left: 10px; }
+    #btn-next { right: 10px; }
+
+    /* NUEVO: Estilos para la imagen ampliada (Lightbox) */
+    .imagen-clickeable { 
+      cursor: pointer; 
+    }
+    .modal-lightbox {
+      display: none; /* Oculto por defecto */
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-contenido {
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .cerrar-modal {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+    .cerrar-modal:hover { color: #b68d40; }
+  </style>
 </head>
 <body>
+
+  <div id="modal-imagen" class="modal-lightbox">
+    <span class="cerrar-modal" id="btn-cerrar-modal">&times;</span>
+    <img class="modal-contenido" id="img-ampliada">
+  </div>
 
   <nav class="top-navbar">
     <div class="back-action">
@@ -36,8 +108,12 @@
     <div class="product-main-grid">
       
       <div class="product-image-column">
-        <div class="image-container-detail" id="contenedor-imagen">
-            <div class="image-placeholder-detail">CARGANDO GALERÍA...</div>
+        <div class="galeria-wrapper">
+          <div class="image-container-detail" id="contenedor-imagen">
+              <div class="image-placeholder-detail">CARGANDO IMAGEN...</div>
+          </div>
+          <button id="btn-prev" class="btn-galeria" style="display: none;">❮</button>
+          <button id="btn-next" class="btn-galeria" style="display: none;">❯</button>
         </div>
       </div>
 
@@ -96,58 +172,79 @@
       const mensajeBase = `Hola Vianie! 👋 Vengo de la página web y me gustaría comprar este accesorio:\n\n*Producto:* ${nombreProducto}\n*Material:* ${materialProducto}\n*Precio:* ${precioProducto} bs.-`;
       const mensajeCodificado = encodeURIComponent(mensajeBase);
 
-      // Traemos las configuraciones y los productos al mismo tiempo
       Promise.all([
         fetch("configuracion.json?t=" + new Date().getTime()).then(r => r.json()).catch(() => ({})),
         fetch("productos.json?t=" + new Date().getTime()).then(r => r.json()).catch(() => ({ articulos: [] }))
       ]).then(([config, datosProductos]) => {
          
-         // 1. WhatsApps dinámicos
          const ws1 = config.ws_1 || "59177163648";
          const ws2 = config.ws_2 || "59176175389";
          document.getElementById('whatsapp-btn-1').href = `https://wa.me/${ws1}?text=${mensajeCodificado}`;
          document.getElementById('whatsapp-btn-2').href = `https://wa.me/${ws2}?text=${mensajeCodificado}`;
 
-         // 2. Construir la Galería de Imágenes
+         // Construir la Galería de Imágenes
          const articulos = datosProductos.articulos || [];
-         // Buscamos el producto exacto por su nombre
          const productoActual = articulos.find(p => p.nombre === nombreProducto);
          
-         // Nuestra lista empieza siempre con la foto principal
          let listaImagenes = [idProducto.trim()];
          
-         // Si el producto tiene fotos extra guardadas, las sumamos a la lista
          if (productoActual && productoActual.galeria && productoActual.galeria.length > 0) {
              listaImagenes = listaImagenes.concat(productoActual.galeria);
          }
 
          const contenedor = document.getElementById('contenedor-imagen');
          contenedor.innerHTML = ''; 
-         contenedor.style.backgroundColor = '#eaeaea'; // Fondo base para evitar destellos blancos
          
          const imgElement = document.createElement('img');
          imgElement.src = listaImagenes[0];
          imgElement.style.width = '100%';
          imgElement.style.height = '100%';
          imgElement.style.objectFit = 'cover';
-         // Esta línea crea el efecto de fundido suave
-         imgElement.style.transition = 'opacity 0.6s ease-in-out'; 
-         
+         imgElement.classList.add('imagen-clickeable'); // Le decimos que se puede cliquear
          contenedor.appendChild(imgElement);
 
-         // 3. Activar la animación solo si hay más de 1 foto
+         // LÓGICA DEL LIGHTBOX (IMAGEN AMPLIADA)
+         const modal = document.getElementById('modal-imagen');
+         const imgAmpliada = document.getElementById('img-ampliada');
+         const btnCerrar = document.getElementById('btn-cerrar-modal');
+
+         // Al hacer clic en la imagen de la galería, se abre en grande
+         imgElement.addEventListener('click', () => {
+             modal.style.display = 'flex';
+             imgAmpliada.src = imgElement.src; // Pone la misma foto que estabas viendo
+         });
+
+         // Botón X para cerrar
+         btnCerrar.addEventListener('click', () => {
+             modal.style.display = 'none';
+         });
+
+         // Si hacen clic en lo negro fuera de la imagen, también se cierra
+         modal.addEventListener('click', (e) => {
+             if (e.target === modal) {
+                 modal.style.display = 'none';
+             }
+         });
+
+         // Activar botones manuales solo si hay más de 1 foto
          if (listaImagenes.length > 1) {
+             const btnPrev = document.getElementById('btn-prev');
+             const btnNext = document.getElementById('btn-next');
+             
+             btnPrev.style.display = 'flex';
+             btnNext.style.display = 'flex';
+             
              let indice = 0;
-             setInterval(() => {
-                 imgElement.style.opacity = '0'; // Se oculta suavemente
-                 
-                 setTimeout(() => {
-                     indice = (indice + 1) % listaImagenes.length;
-                     imgElement.src = listaImagenes[indice]; // Cambia la foto oculta
-                     imgElement.style.opacity = '1'; // Reaparece con la foto nueva
-                 }, 600); // Espera 0.6 segundos en cargar la nueva
-                 
-             }, 3500); // Cambia cada 3.5 segundos automáticamente
+             
+             btnNext.addEventListener('click', () => {
+                 indice = (indice + 1) % listaImagenes.length;
+                 imgElement.src = listaImagenes[indice];
+             });
+             
+             btnPrev.addEventListener('click', () => {
+                 indice = (indice - 1 + listaImagenes.length) % listaImagenes.length;
+                 imgElement.src = listaImagenes[indice];
+             });
          }
       });
     } else {
