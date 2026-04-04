@@ -36,7 +36,6 @@
     <div class="product-main-grid">
       
       <div class="product-image-column">
-        <!-- AQUÍ ESTÁ LA CORRECCIÓN DEL ID: id="contenedor-imagen" -->
         <div class="image-container-detail" id="contenedor-imagen">
             <div class="image-placeholder-detail">CARGANDO IMAGEN...</div>
         </div>
@@ -78,10 +77,6 @@
   </main>
 
   <script>
-    // Los dos números de WhatsApp
-    const numeroSocia1 = "59177163648"; 
-    const numeroSocia2 = "59176175389";
-
     function obtenerParametroUrl(nombreParametro) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(nombreParametro);
@@ -93,6 +88,7 @@
     const materialProducto = obtenerParametroUrl('material');
 
     if (nombreProducto && precioProducto && idProducto) {
+      // Rellenamos los textos visuales
       document.title = `Vianie Jewelry - ${nombreProducto}`;
       document.getElementById('product-name').innerText = nombreProducto;
       document.getElementById('product-price').innerText = precioProducto;
@@ -110,13 +106,28 @@
       contenedor.innerHTML = '';
       contenedor.appendChild(imagenReal);
       
-      // Armamos el mensaje para WhatsApp
+      // Armamos el mensaje base
       const mensajeBase = `Hola Vianie! 👋 Vengo de la página web y me gustaría comprar este accesorio:\n\n*Producto:* ${nombreProducto}\n*Material:* ${materialProducto}\n*Precio:* ${precioProducto} bs.-`;
       const mensajeCodificado = encodeURIComponent(mensajeBase);
-      
-      // Le asignamos el link a cada botón con su respectivo número
-      document.getElementById('whatsapp-btn-1').href = `https://wa.me/${numeroSocia1}?text=${mensajeCodificado}`;
-      document.getElementById('whatsapp-btn-2').href = `https://wa.me/${numeroSocia2}?text=${mensajeCodificado}`;
+
+      // Leemos la configuración desde el panel para obtener los números
+      fetch("configuracion.json?t=" + new Date().getTime())
+        .then(respuesta => respuesta.json())
+        .then(config => {
+           // Usamos los números del panel, o los originales si el panel aún no se guardó
+           const ws1 = config.ws_1 || "59177163648";
+           const ws2 = config.ws_2 || "59176175389";
+
+           // Asignamos los enlaces a los botones
+           document.getElementById('whatsapp-btn-1').href = `https://wa.me/${ws1}?text=${mensajeCodificado}`;
+           document.getElementById('whatsapp-btn-2').href = `https://wa.me/${ws2}?text=${mensajeCodificado}`;
+        })
+        .catch(error => {
+           console.error("No se pudo cargar la configuración:", error);
+           // Fallback en caso de error
+           document.getElementById('whatsapp-btn-1').href = `https://wa.me/59177163648?text=${mensajeCodificado}`;
+           document.getElementById('whatsapp-btn-2').href = `https://wa.me/59176175389?text=${mensajeCodificado}`;
+        });
     
     } else {
       document.body.innerHTML = '<div style="text-align:center; padding:50px; font-family: sans-serif;">Producto no encontrado. <br><br> <a href="index.html" style="color: #b68d40;">Volver al catálogo</a></div>';
