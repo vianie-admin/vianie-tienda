@@ -69,77 +69,54 @@
   </main>
 
   <script>
-    // Ahora leemos el archivo JSON automático que crea tu panel de control
-    const urlFresca = "productos.json?t=" + new Date().getTime();
+    // Cargamos configuraciones y productos al mismo tiempo
+    Promise.all([
+      fetch("configuracion.json?t=" + new Date().getTime()).then(r => r.json()),
+      fetch("productos.json?t=" + new Date().getTime()).then(r => r.json())
+    ]).then(([config, datos]) => {
+        // 1. Aplicar Ajustes Generales
+        document.querySelector('.hero-title').innerHTML = config.titulo_hero.replace("Acero Inox", '<span class="highlight">Acero Inox</span>');
+        document.querySelector('.hero-subtitle').innerText = config.desc_hero;
+        
+        const botonesNav = document.querySelector('.user-actions');
+        botonesNav.innerHTML = `
+          <a href="https://wa.me/${config.ws_1}?text=Hola!" target="_blank" class="contact-btn">Socia 1</a>
+          <a href="https://wa.me/${config.ws_2}?text=Hola!" target="_blank" class="contact-btn">Socia 2</a>
+        `;
 
-    fetch(urlFresca, { cache: "no-store" })
-      .then(respuesta => respuesta.json()) // Ahora leemos JSON, no texto
-      .then(datos => {
-         const contenedor = document.getElementById('catalogo-dinamico');
-         contenedor.innerHTML = ''; // Borramos el "Cargando..."
+        // 2. Cargar Productos (el código que ya teníamos pero con config.ws)
+        const contenedor = document.getElementById('catalogo-dinamico');
+        const categorias = {}; 
+        const articulos = datos.articulos || [];
 
-         const categorias = {}; 
-         // Extraemos los artículos de la lista del panel. Si no hay, usamos una lista vacía.
-         const articulos = datos.articulos || [];
-
-         articulos.forEach(producto => {
-            const nombre = producto.nombre || 'Sin Nombre';
-            const precio = producto.precio || 0;
-            const material = producto.material || '';
-            const categoria = producto.categoria || 'Otros';
-            // El panel guarda la ruta de la imagen así: "/imagenes/foto.jpeg"
-            const imagen = producto.imagen || ''; 
-            const agotado = producto.agotado || false; 
-
-            const claseAgotado = agotado ? 'tarjeta-agotada' : '';
-            const cartelAgotado = agotado ? '<div class="badge-agotado">AGOTADO</div>' : '';
-
-            // Armamos la tarjeta, enviando la ruta de la imagen directo al link
+        articulos.forEach(producto => {
+            const claseAgotado = producto.agotado ? 'tarjeta-agotada' : '';
             const tarjetaHTML = `
               <article class="jewelry-card ${claseAgotado}">
-                <a href="producto.html?id=${encodeURIComponent(imagen)}&nombre=${encodeURIComponent(nombre)}&precio=${precio}&material=${encodeURIComponent(material)}">
+                <a href="producto.html?id=${encodeURIComponent(producto.imagen)}&nombre=${encodeURIComponent(producto.nombre)}&precio=${producto.precio}&material=${encodeURIComponent(producto.material)}">
                   <div class="image-container">
-                      <img src="${imagen}" alt="${nombre}" style="width: 100%; height: 100%; object-fit: cover;">
-                      ${cartelAgotado}
+                      <img src="${producto.imagen}" alt="${producto.nombre}">
+                      ${producto.agotado ? '<div class="badge-agotado">AGOTADO</div>' : ''}
                   </div>
                   <div class="jewelry-info">
-                    <h3>${nombre}</h3>
+                    <h3>${producto.nombre}</h3>
                     <div class="jewelry-details">
-                      <span class="price">${precio} bs.-</span>
-                      <span class="material-tag">${material}</span>
+                      <span class="price">${producto.precio} bs.-</span>
+                      <span class="material-tag">${producto.material}</span>
                     </div>
                   </div>
                 </a>
-              </article>
-            `;
-            
-            if (!categorias[categoria]) {
-                categorias[categoria] = [];
-            }
-            categorias[categoria].push(tarjetaHTML);
-         });
+              </article>`;
+            if (!categorias[producto.categoria]) categorias[producto.categoria] = [];
+            categorias[producto.categoria].push(tarjetaHTML);
+        });
 
-         let htmlFinal = '';
-
-         for (const cat in categorias) {
-             htmlFinal += `<h2 class="category-title">${cat}</h2>`;
-             htmlFinal += `<section class="jewelry-grid">`;
-             htmlFinal += categorias[cat].join('');
-             htmlFinal += `</section>`;
-         }
-
-         // Si la tienda está vacía, mostramos un mensaje
-         if(htmlFinal === '') {
-             htmlFinal = '<p style="text-align:center; padding: 50px; color:#888;">No hay productos en el catálogo todavía.</p>';
-         }
-
-         contenedor.innerHTML = htmlFinal;
-
-      })
-      .catch(error => {
-          console.error("Error al obtener los datos:", error);
-          document.getElementById('catalogo-dinamico').innerHTML = '<p style="color:red; text-align:center; padding: 50px;">Aún no se ha creado el catálogo desde el Panel de Administración.</p>';
-      });
+        let htmlFinal = '';
+        for (const cat in categorias) {
+            htmlFinal += `<h2 class="category-title">${cat}</h2><section class="jewelry-grid">${categorias[cat].join('')}</section>`;
+        }
+        contenedor.innerHTML = htmlFinal || '<p>Catálogo vacío.</p>';
+    });
   </script>
 
 </body>
