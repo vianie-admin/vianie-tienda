@@ -1,24 +1,39 @@
 backend:
   name: git-gateway
-  branch: main # Rama principal de tu código
+  branch: main
 
-# Aquí se guardarán las fotos nuevas que subas
 media_folder: "imagenes"
 public_folder: "/imagenes"
 
 collections:
+  - name: "configuracion"
+    label: "⚙️ Ajustes del Sitio"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: "Textos y Contactos"
+        name: "ajustes"
+        file: "configuracion.json"
+        fields:
+          - {label: "Título Principal", name: "titulo_hero", widget: "string", default: "Accesorios en Acero Inox"}
+          - {label: "Subtítulo", name: "desc_hero", widget: "text"}
+          - {label: "WhatsApp Socia 1", name: "ws_1", widget: "string", default: "59177163648"}
+          - {label: "WhatsApp Socia 2", name: "ws_2", widget: "string", default: "59176175389"}
+          - {label: "Instagram (Link)", name: "instagram", widget: "string", required: false}
+
   - name: "tienda"
-    label: "Gestión de Tienda"
+    label: "📦 Gestión de Productos"
     files:
       - label: "Catálogo de Joyas"
         name: "catalogo"
-        file: "productos.json" # Reemplazaremos el Excel por este archivo automático
+        file: "productos.json"
         fields:
           - label: "Lista de Productos"
             name: "articulos"
             widget: "list"
             fields:
-              - {label: "Nombre del Producto", name: "nombre", widget: "string"}
+              - {label: "Nombre", name: "nombre", widget: "string"}
               - {label: "Precio (bs)", name: "precio", widget: "number"}
               - {label: "Material", name: "material", widget: "string"}
               - {label: "Categoría", name: "categoria", widget: "select", options: ["Aros y Argollas", "Anillos", "Cadenas y Collares", "Otros"]}
