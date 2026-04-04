@@ -38,4 +38,9 @@ collections:
               - {label: "Material", name: "material", widget: "string"}
               - {label: "Categoría", name: "categoria", widget: "select", options: ["Aros y Argollas", "Anillos", "Cadenas y Collares", "Otros"]}
               - {label: "Agotado", name: "agotado", widget: "boolean", default: false}
-              - {label: "Subir Imagen", name: "imagen", widget: "image"}
+              - {label: "Subir Imagen Principal", name: "imagen", widget: "image"}
+              - label: "Galería Extra (Opcional)"
+                name: "galeria"
+                widget: "list"
+                required: false
+                field: {label: "Foto Adicional", name: "foto", widget: "image"}
