@@ -6,15 +6,11 @@
       "precio": 45,
       "material": "Dorado",
       "categoria": "Aros y Argollas",
-      "imagen": "/imagenes/girasol.jpeg"
-    },
-    {
-      "agotado": true,
-      "nombre": "Argolla Mediana Circones Blancos",
-      "precio": 40,
-      "material": "Dorado",
-      "categoria": "Aros y Argollas",
-      "imagen": "/imagenes/1-argolla-circones.jpeg"
+      "imagen": "/imagenes/girasol.jpeg",
+      "galeria": [
+        "/imagenes/10-argolla-cuadrada.jpeg",
+        "/imagenes/1-argolla-circones.jpeg"
+      ]
     }
   ]
 }
