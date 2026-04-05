@@ -77,12 +77,6 @@
         // 1. Aplicar Ajustes Generales
         document.querySelector('.hero-title').innerHTML = config.titulo_hero.replace("Acero Inox", '<span class="highlight">Acero Inox</span>');
         document.querySelector('.hero-subtitle').innerText = config.desc_hero;
-        
-        const botonesNav = document.querySelector('.user-actions');
-        botonesNav.innerHTML = `
-          <a href="https://wa.me/${config.ws_1}?text=Hola!" target="_blank" class="contact-btn">Socia 1</a>
-          <a href="https://wa.me/${config.ws_2}?text=Hola!" target="_blank" class="contact-btn">Socia 2</a>
-        `;
 
         // 2. Cargar Productos (el código que ya teníamos pero con config.ws)
         const contenedor = document.getElementById('catalogo-dinamico');
