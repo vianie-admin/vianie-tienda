@@ -37,7 +37,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Argolla Corazón Grande",
       "precio": 25,
       "material": "Plateado",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Argolla Corazón Mediana Plateado ",
       "precio": 21,
       "material": "Plateado",
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Argolla Corazón Pequeño plateado",
       "precio": 17,
       "material": "Plateado",
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Aritos Mariposa círculo ",
       "precio": 11,
       "material": "Plateado",
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Aritos Mariposa ",
       "precio": 11,
       "material": "Plateado",
@@ -114,7 +114,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Aritos punto plateado",
       "precio": 11,
       "material": "Plateado",
@@ -136,7 +136,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Collar Triple c/bolitas ",
       "precio": 45,
       "material": "Plateado",
@@ -144,7 +144,7 @@
       "imagen": "/imagenes/tripe.jpeg"
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Cadena Planchada plateado ",
       "precio": 30,
       "material": "Plateado",
@@ -196,7 +196,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Pulsera Van cleef Bala negro",
       "precio": 56,
       "material": "Plateado",
