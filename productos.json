@@ -207,7 +207,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Pulsera dup Pandora c/reloj",
       "precio": 65,
       "material": "Plateado",
@@ -218,7 +218,7 @@
       ]
     },
     {
-      "agotado": true,
+      "agotado": false,
       "nombre": "Pulsera planchada plateado",
       "precio": 20,
       "material": "Plateado",
