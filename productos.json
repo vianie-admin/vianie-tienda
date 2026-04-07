@@ -93,17 +93,6 @@
     },
     {
       "agotado": false,
-      "nombre": "Aritos Mariposa ",
-      "precio": 11,
-      "material": "Plateado",
-      "categoria": "Aros y Argollas",
-      "imagen": "/imagenes/mariposas1.jpeg",
-      "galeria": [
-        "/imagenes/mariposas.jpeg"
-      ]
-    },
-    {
-      "agotado": false,
       "nombre": "Aritos punto dorado",
       "precio": 11,
       "material": "Dorado",
@@ -111,6 +100,17 @@
       "imagen": "/imagenes/punto2.jpeg",
       "galeria": [
         "/imagenes/punto1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aritos Mariposa ",
+      "precio": 11,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/mariposas1.jpeg",
+      "galeria": [
+        "/imagenes/mariposas.jpeg"
       ]
     },
     {
@@ -136,7 +136,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Collar Triple c/bolitas ",
       "precio": 45,
       "material": "Plateado",
@@ -144,7 +144,7 @@
       "imagen": "/imagenes/tripe.jpeg"
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Cadena Planchada plateado ",
       "precio": 30,
       "material": "Plateado",
