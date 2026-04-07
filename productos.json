@@ -37,7 +37,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Argolla Corazón Grande",
       "precio": 25,
       "material": "Plateado",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Argolla Corazón Mediana Plateado ",
       "precio": 21,
       "material": "Plateado",
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Argolla Corazón Pequeño plateado",
       "precio": 17,
       "material": "Plateado",
@@ -81,18 +81,7 @@
       ]
     },
     {
-      "agotado": false,
-      "nombre": "Aritos Mariposa ",
-      "precio": 11,
-      "material": "Plateado",
-      "categoria": "Aros y Argollas",
-      "imagen": "/imagenes/mariposas1.jpeg",
-      "galeria": [
-        "/imagenes/mariposas.jpeg"
-      ]
-    },
-    {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos Mariposa círculo ",
       "precio": 11,
       "material": "Plateado",
@@ -100,6 +89,17 @@
       "imagen": "/imagenes/mariposasc2.jpeg",
       "galeria": [
         "/imagenes/mariposasc.jpeg"
+      ]
+    },
+    {
+      "agotado": true,
+      "nombre": "Aritos Mariposa ",
+      "precio": 11,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/mariposas1.jpeg",
+      "galeria": [
+        "/imagenes/mariposas.jpeg"
       ]
     },
     {
@@ -114,7 +114,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos punto plateado",
       "precio": 11,
       "material": "Plateado",
@@ -136,7 +136,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Collar Triple c/bolitas ",
       "precio": 45,
       "material": "Plateado",
@@ -144,7 +144,7 @@
       "imagen": "/imagenes/tripe.jpeg"
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Cadena Planchada plateado ",
       "precio": 30,
       "material": "Plateado",
@@ -196,7 +196,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera Van cleef Bala negro",
       "precio": 56,
       "material": "Plateado",
@@ -207,7 +207,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera dup Pandora c/reloj",
       "precio": 65,
       "material": "Plateado",
@@ -218,7 +218,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera planchada plateado",
       "precio": 20,
       "material": "Plateado",
