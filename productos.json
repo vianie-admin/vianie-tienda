@@ -2,14 +2,252 @@
   "articulos": [
     {
       "agotado": false,
-      "nombre": "Cadena Rapunzel dorada",
-      "precio": 45,
+      "nombre": "Aro Mariposa Mediano ",
+      "precio": 20,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/aromariposa2.jpeg",
+      "galeria": [
+        "/imagenes/aromariposa1.jpeg",
+        "/imagenes/aromariposa3.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aro Mariposa pequeño ",
+      "precio": 15,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/aritomariposa2.jpeg",
+      "galeria": [
+        "/imagenes/aritomariposa1.jpeg",
+        "/imagenes/aritomariposa.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Argolla Grande C/Flores",
+      "precio": 30,
       "material": "Dorado",
       "categoria": "Aros y Argollas",
-      "imagen": "/imagenes/girasol.jpeg",
+      "imagen": "/imagenes/argollaflores2.jpeg",
       "galeria": [
-        "/imagenes/10-argolla-cuadrada.jpeg",
-        "/imagenes/1-argolla-circones.jpeg"
+        "/imagenes/argollaflores.jpeg",
+        "/imagenes/argollaflores1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Argolla Corazón Grande",
+      "precio": 25,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/argollacorazon.jpeg",
+      "galeria": [
+        "/imagenes/argollacorazon1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Argolla Corazón Grande Dorado ",
+      "precio": 22,
+      "material": "Dorado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/argollacorazonn1.jpeg",
+      "galeria": [
+        "/imagenes/argollacorazonn.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Argolla Corazón Mediana Plateado ",
+      "precio": 21,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/mediano2.jpeg",
+      "galeria": [
+        "/imagenes/mediano.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Argolla Corazón Pequeño plateado",
+      "precio": 17,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/pequeno.jpeg",
+      "galeria": [
+        "/imagenes/pequeno2.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aritos Mariposa ",
+      "precio": 11,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/mariposas1.jpeg",
+      "galeria": [
+        "/imagenes/mariposas.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aritos Mariposa círculo ",
+      "precio": 11,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/mariposasc2.jpeg",
+      "galeria": [
+        "/imagenes/mariposasc.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aritos punto dorado",
+      "precio": 11,
+      "material": "Dorado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/punto2.jpeg",
+      "galeria": [
+        "/imagenes/punto1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Aritos punto plateado",
+      "precio": 11,
+      "material": "Plateado",
+      "categoria": "Aros y Argollas",
+      "imagen": "/imagenes/ppunto2.jpeg",
+      "galeria": [
+        "/imagenes/ppunto1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Cadena Punto de luces c/corazones ",
+      "precio": 45,
+      "material": "Dorado",
+      "categoria": "Cadenas y Collares",
+      "imagen": "/imagenes/cadenac2.jpeg",
+      "galeria": [
+        "/imagenes/cadenac.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Collar Triple c/bolitas ",
+      "precio": 45,
+      "material": "Plateado",
+      "categoria": "Cadenas y Collares",
+      "imagen": "/imagenes/tripe.jpeg"
+    },
+    {
+      "agotado": false,
+      "nombre": "Cadena Planchada plateado ",
+      "precio": 30,
+      "material": "Plateado",
+      "categoria": "Cadenas y Collares",
+      "imagen": "/imagenes/cadenap.jpeg"
+    },
+    {
+      "agotado": false,
+      "nombre": "Cadena Planchada dorado ",
+      "precio": 30,
+      "material": "Dorado",
+      "categoria": "Cadenas y Collares",
+      "imagen": "/imagenes/cadenad.jpeg"
+    },
+    {
+      "agotado": false,
+      "nombre": "Cadena Sol dorado ",
+      "precio": 40,
+      "material": "Dorado",
+      "categoria": "Cadenas y Collares",
+      "imagen": "/imagenes/sold3.jpeg",
+      "galeria": [
+        "/imagenes/sold.jpeg",
+        "/imagenes/sold2.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Manilla Mariposa",
+      "precio": 40,
+      "material": "Plateado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/manillam2.jpeg",
+      "galeria": [
+        "/imagenes/manillam.jpeg",
+        "/imagenes/manillam1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Pulsera Van cleef Bala lila",
+      "precio": 56,
+      "material": "Plateado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/manillal.jpeg",
+      "galeria": [
+        "/imagenes/manillal1.jpeg",
+        "/imagenes/manillal2.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Pulsera Van cleef Bala negro",
+      "precio": 56,
+      "material": "Plateado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/manillan.jpeg",
+      "galeria": [
+        "/imagenes/manillan1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Pulsera dup Pandora c/reloj",
+      "precio": 65,
+      "material": "Plateado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/manillar.jpeg",
+      "galeria": [
+        "/imagenes/manillar1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Pulsera planchada plateado",
+      "precio": 20,
+      "material": "Plateado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/planchap.jpeg",
+      "galeria": [
+        "/imagenes/planchap1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Manilla planchada dorado",
+      "precio": 20,
+      "material": "Dorado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/planchad.jpeg",
+      "galeria": [
+        "/imagenes/planchad1.jpeg"
+      ]
+    },
+    {
+      "agotado": false,
+      "nombre": "Tobillera Estrellas y perlas ",
+      "precio": 35,
+      "material": "Dorado",
+      "categoria": "Otros",
+      "imagen": "/imagenes/pied.jpeg",
+      "galeria": [
+        "/imagenes/pied2.jpeg"
       ]
     }
   ]
