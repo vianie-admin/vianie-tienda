@@ -505,3 +505,20 @@ body {
   pointer-events: none; 
   filter: grayscale(30%); /* Le quita un poco de color para que resalte menos */
 }
+/* AJUSTE PARA QUE LAS FOTOS DEL CATÁLOGO SE VEAN UNIFORMES */
+
+.jewelry-card .image-container {
+    aspect-ratio: 1 / 1 !important; /* Fuerza a que la caja sea un cuadrado perfecto */
+    width: 100% !important;
+    background-color: #f9f9f9 !important; /* Un fondo gris muy sutil */
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.jewelry-card .image-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; 
+}
