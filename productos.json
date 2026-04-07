@@ -13,7 +13,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aro Mariposa pequeño ",
       "precio": 15,
       "material": "Plateado",
@@ -103,7 +103,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos Mariposa ",
       "precio": 11,
       "material": "Plateado",
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Cadena Punto de luces c/corazones ",
       "precio": 45,
       "material": "Dorado",
@@ -172,7 +172,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Manilla Mariposa",
       "precio": 40,
       "material": "Plateado",
