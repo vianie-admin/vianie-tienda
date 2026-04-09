@@ -92,7 +92,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos punto dorado",
       "precio": 11,
       "material": "Dorado",
@@ -114,7 +114,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos punto plateado",
       "precio": 11,
       "material": "Plateado",
@@ -152,7 +152,7 @@
       "imagen": "/imagenes/cadenap.jpeg"
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Cadena Planchada dorado ",
       "precio": 30,
       "material": "Dorado",
