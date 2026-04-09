@@ -81,7 +81,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Aritos Mariposa círculo ",
       "precio": 11,
       "material": "Plateado",
