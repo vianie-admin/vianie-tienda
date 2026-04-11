@@ -218,7 +218,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera planchada plateado",
       "precio": 20,
       "material": "Plateado",
@@ -229,7 +229,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Manilla planchada dorado",
       "precio": 20,
       "material": "Dorado",
