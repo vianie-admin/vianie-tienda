@@ -184,7 +184,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera Van cleef Bala lila",
       "precio": 56,
       "material": "Plateado",
@@ -207,7 +207,7 @@
       ]
     },
     {
-      "agotado": false,
+      "agotado": true,
       "nombre": "Pulsera dup Pandora c/reloj",
       "precio": 70,
       "material": "Plateado",
